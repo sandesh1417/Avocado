@@ -1,16 +1,17 @@
-# avocado
+# Avocado
 
-A new Flutter project.
+Since your request "Avocado", I submitted this repo to you
 
-## Getting Started
+## Task Details
 
-This project is a starting point for a Flutter application.
+I have created two branch
 
-A few resources to get you started if this is your first Flutter project:
+#getx_branch
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+where all the code related to the getx package are included
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#bloc_branch
+
+where all the code related to the flutter_bloc package are included
+
+
