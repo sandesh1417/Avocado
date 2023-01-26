@@ -1,9 +1,9 @@
-import 'package:avocado/screens/home_screen/animation_film.dart';
-import 'package:avocado/screens/home_screen/now_showing.dart';
+import 'package:avocado/presentation/screens/home_screen/animation_film.dart';
+import 'package:avocado/presentation/screens/home_screen/now_showing.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/app/app_colors.dart';
-import '../../widgets/text_form.dart';
+import '../../constants/app_colors.dart';
+import '../../widgets/search_widget.dart';
 import '../../widgets/texts/normal_text.dart';
 import '../../widgets/texts/sub_title.dart';
 import '../../widgets/texts/title_text.dart';
@@ -16,12 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // @override
-  // void initState() {
-  //   BlocProvider.of<ProductBloc>(context).add(ProductFetchEvent());
-  //   super.initState();
-  // }
-
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -35,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: const BouncingScrollPhysics(),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              //heder part
               Container(
                 padding: const EdgeInsets.only(
                     top: 30, right: 0, bottom: 10, left: 0),
@@ -88,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const TextForm(),
+              const SearchWidget(),
               const SizedBox(
                 height: 20,
               ),

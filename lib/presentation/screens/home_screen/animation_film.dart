@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/api/end_points.dart';
-import '../../controlles/upcoming_movie_controlles.dart';
+import '../../../data/services/api/end_points.dart';
+import '../../../logic/controlles/upcoming_movie_controlles.dart';
 
 class AnimationFilm extends StatelessWidget {
   const AnimationFilm({super.key});
@@ -18,7 +18,7 @@ class AnimationFilm extends StatelessWidget {
         Obx(() => upcomingMovieController.isLoaded.value
             ? const Center(child: CircularProgressIndicator())
             : SizedBox(
-                height: height + 450,
+                height: height * 1.55,
                 child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -26,8 +26,6 @@ class AnimationFilm extends StatelessWidget {
                         (upcomingMovieController.upcomingMovieList.length / 3)
                             .floor(),
                     itemBuilder: (context, i) {
-                      // var movies = upcomingMovieController
-                      //             .upcomingMovieList[i];
                       return Container(
                         height: height / 4.25,
                         margin: const EdgeInsets.only(top: 8, bottom: 8),
@@ -38,11 +36,6 @@ class AnimationFilm extends StatelessWidget {
                             itemBuilder: (context, j) {
                               var movies = upcomingMovieController
                                   .upcomingMovieList[j + 3 * i];
-
-                              // if (i == j) {
-                              //   movies = upcomingMovieController
-                              //       .upcomingMovieList[j];
-                              // }
 
                               return Container(
                                 margin:
@@ -65,13 +58,3 @@ class AnimationFilm extends StatelessWidget {
     );
   }
 }
-
-
-// for(i=0;i<10;i++){
-//   for(j=0;j<3;j++){
-    
-//       movies=a[i];
-
-
-//   }
-// }

@@ -1,5 +1,4 @@
-import 'package:avocado/routers/routes.dart';
-import 'package:avocado/widgets/navigation.dart';
+import 'package:avocado/presentation/routers/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainScreen(),
     );
   }
 }

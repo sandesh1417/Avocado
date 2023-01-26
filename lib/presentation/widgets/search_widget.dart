@@ -1,15 +1,15 @@
-import 'package:avocado/constants/app/app_colors.dart';
+import 'package:avocado/presentation/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class TextForm extends StatelessWidget {
-  const TextForm({
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 45,
       decoration: BoxDecoration(
         color: AppColor.containerColor,
         borderRadius: BorderRadius.circular(30),

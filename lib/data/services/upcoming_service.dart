@@ -1,7 +1,7 @@
-import 'package:avocado/models/upcoming_movie_model.dart';
+import 'package:avocado/data/models/upcoming_movie_model.dart';
 
-import '../api/api_services.dart';
-import '../constants/api/end_points.dart';
+import 'api/api_services.dart';
+import 'api/end_points.dart';
 
 class UpcomingShowsServices {
   Future<List<dynamic>> getUpcomingShows() async {

@@ -1,11 +1,11 @@
-import 'package:avocado/constants/app/app_colors.dart';
-import 'package:avocado/models/now_showing_movie_model.dart';
+import 'package:avocado/presentation/constants/app_colors.dart';
+import 'package:avocado/data/models/now_showing_movie_model.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/api/end_points.dart';
-import '../../controlles/now_showing_controller.dart';
+import '../../../data/services/api/end_points.dart';
+import '../../../logic/controlles/now_showing_controller.dart';
 
 class NowShowing extends StatefulWidget {
   const NowShowing({Key? key}) : super(key: key);
@@ -19,13 +19,6 @@ class _NowShowingState extends State<NowShowing> {
   var currentValue = 0.0;
   var scaleFacto = 0.75;
   double height = 220;
-  bool isBlur = false;
-
-  List<String> nowShows = [
-    "assets/images/marvel.png",
-    "assets/images/avengers.png",
-    "assets/images/doctor_strange.png",
-  ];
 
   @override
   void initState() {
@@ -41,15 +34,14 @@ class _NowShowingState extends State<NowShowing> {
   Widget build(BuildContext context) {
     final NowShowsMovieController nowShowsMovieController =
         Get.put(NowShowsMovieController());
-    // print("height:" + Dimension.screenHeight.toString());
-    // print("width:" + Dimension.screenWidth.toString());
+
     return Column(
       children: [
         Obx(
           () => nowShowsMovieController.isLoaded.value
               ? const Center(child: CircularProgressIndicator())
               : SizedBox(
-                  height: 320,
+                  height: 270,
                   child: PageView.builder(
                       controller: pageController,
                       scrollDirection: Axis.horizontal,
@@ -105,7 +97,7 @@ class _NowShowingState extends State<NowShowing> {
       transform: matrix,
       child: Container(
         margin: const EdgeInsets.only(left: 5, right: 5),
-        height: 300,
+        height: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           image: DecorationImage(

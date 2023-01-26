@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../services/now_showing_service.dart';
+import '../../data/services/now_showing_service.dart';
 
 class NowShowsMovieController extends GetxController {
   final List<dynamic> _nowShowsMovieList = [];
@@ -18,7 +18,6 @@ class NowShowsMovieController extends GetxController {
       isLoaded(true);
       var movies = await NowShowsServices().getNowShows();
       _nowShowsMovieList.addAll(movies);
-      print(_nowShowsMovieList.toString());
     } finally {
       isLoaded(false);
     }

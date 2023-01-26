@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../services/upcoming_service.dart';
+import '../../data/services/upcoming_service.dart';
 
 class UpcomingMovieController extends GetxController {
   final List<dynamic> _upcomingMovieList = [];
@@ -18,7 +18,6 @@ class UpcomingMovieController extends GetxController {
       isLoaded(true);
       var movies = await UpcomingShowsServices().getUpcomingShows();
       _upcomingMovieList.addAll(movies);
-      print(_upcomingMovieList.toString());
     } finally {
       isLoaded(false);
     }

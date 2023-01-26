@@ -1,5 +1,5 @@
-import '../api/api_services.dart';
-import '../constants/api/end_points.dart';
+import 'api/api_services.dart';
+import 'api/end_points.dart';
 import '../models/now_showing_movie_model.dart';
 
 class NowShowsServices {

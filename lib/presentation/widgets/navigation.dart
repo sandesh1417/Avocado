@@ -1,7 +1,7 @@
-import 'package:avocado/constants/app/app_colors.dart';
-import 'package:avocado/screens/profile_screen.dart';
-import 'package:avocado/screens/ticket_screen.dart';
-import 'package:avocado/screens/wallet_screen.dart';
+import 'package:avocado/presentation/constants/app_colors.dart';
+import 'package:avocado/presentation/screens/profile_screen.dart';
+import 'package:avocado/presentation/screens/ticket_screen.dart';
+import 'package:avocado/presentation/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import '../screens/home_screen/home_screen.dart';
 
@@ -51,17 +51,11 @@ class _NavigationBarState extends State<MainScreen> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home, size: 25), label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.airplane_ticket, size: 25),
-                // activeIcon: Icon(Icons.airplane_ticket_outlined, size: 25),
-                label: ""),
+                icon: Icon(Icons.airplane_ticket, size: 25), label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.wallet, size: 25),
-                // activeIcon: Icon(Icons.wallet_outlined, size: 25),
-                label: ""),
+                icon: Icon(Icons.wallet, size: 25), label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person, size: 25),
-                // activeIcon: Icon(Icons.person, size: 25),
-                label: ""),
+                icon: Icon(Icons.person, size: 25), label: ""),
           ]),
     );
   }
