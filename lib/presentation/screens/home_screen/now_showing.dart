@@ -3,7 +3,6 @@ import 'package:avocado/data/models/now_showing_movie_model.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../data/services/api/end_points.dart';
 import '../../../logic/controlles/now_showing_controller.dart';
 
