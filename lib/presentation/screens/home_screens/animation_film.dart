@@ -1,3 +1,4 @@
+import 'package:avocado/presentation/screens/movie_details_screen/movie_details_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/repositories/api/api_constants.dart';
@@ -18,38 +19,41 @@ class _AnimationFilmState extends State<AnimationFilm> {
     return Column(
       children: [
         SizedBox(
-            height: height * 1.55,
-            child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: (widget.movies.length / 3).floor(),
-                itemBuilder: (context, i) {
-                  return Container(
-                    height: height / 4.25,
-                    margin: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        itemBuilder: (context, j) {
-                          var movies = widget.movies[j + 3 * i];
-
-                          return Container(
-                            margin: const EdgeInsets.only(left: 5, right: 5),
-                            height: height / 4,
-                            width: width / 3,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    "${APIUrl.imgBaseUrl}${movies.posterPath}"),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          );
-                        }),
-                  );
-                }))
+          height: height * 0.6,
+          child: GridView.builder(
+              itemCount: widget.movies.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1),
+              itemBuilder: (context, index) {
+                var movies = widget.movies[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              MovieDetailPage(movie: widget.movies[index])),
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 5, right: 5),
+                    height: height / 4,
+                    width: width / 3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            "${APIUrl.imgBaseUrl}${movies.posterPath}"),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        )
       ],
     );
   }

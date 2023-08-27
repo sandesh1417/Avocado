@@ -1,9 +1,10 @@
 import 'package:avocado/data/models/now_shows_model.dart';
-import 'package:dots_indicator/dots_indicator.dart';
+import 'package:avocado/data/models/upcoming_movie_model.dart';
+import 'package:avocado/presentation/screens/movie_details_screen/movie_details_screen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/repositories/api/api_constants.dart';
-import '../../constants/app_colors.dart';
 
 class NowShowing extends StatefulWidget {
   final List<dynamic> movies;
@@ -18,85 +19,84 @@ class _NowShowingState extends State<NowShowing> {
   var currentValue = 0.0;
   var scaleFacto = 0.75;
   double height = 220;
+  List<dynamic> movie = [];
 
   @override
   void initState() {
     super.initState();
-    pageController.addListener(() {
-      setState(() {
-        currentValue = pageController.page!;
-      });
-    });
+
+    movie = widget.movies;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 270,
-          child: PageView.builder(
-              controller: pageController,
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: ((context, index) {
-                return buildPageItem(index, widget.movies[index]);
-              })),
-        ),
-        const SizedBox(height: 10),
-        DotsIndicator(
-          dotsCount: 10,
-          position: currentValue,
-          decorator: DotsDecorator(
-            color: AppColor.dotInactiveColor,
-            size: const Size.square(15),
-            activeSize: const Size(30, 15),
-            activeShape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildPageItem(int index, NowShowingMovieModel movie) {
-    Matrix4 matrix = Matrix4.identity();
-    if (index == currentValue.floor()) {
-      var currScale = 1 - (currentValue - index) * (1 - scaleFacto);
-      var currTrans = height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(1, currTrans, 1);
-    } else if (index == currentValue.floor() + 1) {
-      var currScale =
-          scaleFacto + (currentValue - index + 1) * (1 - scaleFacto);
-      var currTrans = height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(1, currTrans, 1);
-    } else if (index == currentValue.floor() - 1) {
-      var currScale = 1 - (currentValue - index) * (1 - scaleFacto);
-      var currTrans = height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(1, currTrans, 1);
-    } else {
-      var currScale = 0.8;
-      var currTrans = height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(1, currTrans, 1);
-    }
-    return Transform(
-      transform: matrix,
-      child: Container(
-        margin: const EdgeInsets.only(left: 5, right: 5),
-        height: 250,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-          image: DecorationImage(
-            image: NetworkImage("${APIUrl.imgBaseUrl}${movie.posterPath}"),
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-    );
+    return CarouselSlider.builder(
+        itemCount: widget.movies.length,
+        itemBuilder: (_, i, j) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        MovieDetailPage(movie: widget.movies[i])),
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 5, right: 5),
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "${APIUrl.imgBaseUrl}${movie[i].posterPath}"),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          );
+        },
+        options: CarouselOptions(
+            height: 250,
+            aspectRatio: 16 / 9, // Aspect ratio of each item
+            viewportFraction: 0.7,
+            initialPage: 0,
+            enableInfiniteScroll: true, // Infinite scroll
+            reverse: false,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 1),
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enlargeCenterPage: true,
+            onPageChanged: (index, reason) {
+              print('Page changed to index $index');
+            }));
+    // Column(
+    //   children: [
+    //     SizedBox(
+    //       height: 270,
+    //       child: PageView.builder(
+    //           controller: pageController,
+    //           scrollDirection: Axis.horizontal,
+    //           physics: const BouncingScrollPhysics(),
+    //           itemCount: 10,
+    //           itemBuilder: ((context, index) {
+    //             return buildPageItem(index, widget.movies[index]);
+    //           })),
+    //     ),
+    //     const SizedBox(height: 10),
+    //     DotsIndicator(
+    //       dotsCount: 10,
+    //       position: currentValue,
+    //       decorator: DotsDecorator(
+    //         color: AppColor.dotInactiveColor,
+    //         size: const Size.square(15),
+    //         activeSize: const Size(30, 15),
+    //         activeShape:
+    //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 }

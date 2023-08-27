@@ -1,12 +1,23 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 
-class SearchWidget extends StatelessWidget {
+class SearchWidget extends StatefulWidget {
+  final List<dynamic> filteredList;
+  final Function(String) onChange;
   const SearchWidget({
     Key? key,
+    required this.filteredList,
+    required this.onChange,
   }) : super(key: key);
 
+  @override
+  State<SearchWidget> createState() => _SearchWidgetState();
+}
+
+class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,6 +52,7 @@ class SearchWidget extends StatelessWidget {
             hintText: "Search here...",
             hintStyle:
                 const TextStyle(color: Color.fromARGB(137, 255, 255, 255))),
+        onChanged: widget.onChange,
       ),
     );
   }

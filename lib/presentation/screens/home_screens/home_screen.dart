@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:avocado/logic/blocs/now_shows_blocs/bloc/now_showing_bloc.dart';
 import 'package:avocado/logic/blocs/upcoming_shows_blocs/bloc/upcoming_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final TextEditingController passwordController = TextEditingController();
+  List<dynamic> newList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,22 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Image(
+                        Image(
                             height: 50,
                             width: 50,
                             image: AssetImage("assets/images/profile.png")),
-                        const SizedBox(
+                        SizedBox(
                           width: 10,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             TitleText(
                               firstText: "Hello",
-                              secondText: " Biraj",
+                              secondText: " Admin",
                               colors: AppColor.whiteColor,
                             ),
                             NormalText(
@@ -91,13 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const SearchWidget(),
               const SizedBox(
                 height: 20,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   SubTitleText(
                     firstText: "Now",
                     secondText: " Showing",
@@ -116,7 +119,10 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<NowShowingBloc, NowShowingState>(
                 builder: (context, state) {
                   if (state is NowShowsLoadingState) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                        child: CupertinoActivityIndicator(
+                      color: Colors.white70,
+                    ));
                   } else if (state is NowShowsLoadedState) {
                     return Column(
                       children: [
@@ -134,9 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   SubTitleText(
                     firstText: "Animation",
                     secondText: " Film",
@@ -155,13 +161,34 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<UpcomingBloc, UpcomingState>(
                 builder: (context, state) {
                   if (state is UpcomingLoadingState) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                        child: CupertinoActivityIndicator(
+                      color: Colors.white70,
+                    ));
                   } else if (state is UpcomingLoadedState) {
                     return Column(
                       children: [
+                        SearchWidget(
+                          filteredList: state.movies,
+                          onChange: (query) {
+                            setState(() {
+                              newList = state.movies
+                                  .where((item) => item.title!
+                                      .toLowerCase()
+                                      .contains(query.toLowerCase()))
+                                  .toList();
+                              // log('${newList[0].title}searchList=====$query');
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         BlocProvider.value(
                           value: BlocProvider.of<NowShowingBloc>(context),
-                          child: AnimationFilm(movies: state.movies),
+                          child: AnimationFilm(
+                              movies:
+                                  newList.isNotEmpty ? newList : state.movies),
                         ),
                       ],
                     );

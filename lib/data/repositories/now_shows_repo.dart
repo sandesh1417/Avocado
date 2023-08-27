@@ -1,3 +1,5 @@
+import 'package:avocado/data/models/upcoming_movie_model.dart';
+
 import '../models/now_shows_model.dart';
 import 'api/api_constants.dart';
 import 'api/api_services.dart';
@@ -9,10 +11,10 @@ class NowShowsRepository {
     var url = APIUrl.nowShows;
 
     try {
-      var result = await api.get(url);
+      var result = await api.dio.get(url);
       var response = result;
-      List<dynamic> dataList = response["results"]
-          .map((i) => NowShowingMovieModel.fromJson(i))
+      List<dynamic> dataList = response.data["results"]
+          .map((i) => UpcomingMovieModel.fromJson(i))
           .toList();
 
       return dataList;

@@ -9,9 +9,9 @@ class UpcomingRepository {
     var url = APIUrl.nowShows;
 
     try {
-      var result = await api.get(url);
+      var result = await api.dio.get(url);
       var response = result;
-      List<dynamic> dataList = response["results"]
+      List<dynamic> dataList = response.data["results"]
           .map((i) => UpcomingMovieModel.fromJson(i))
           .toList();
 
